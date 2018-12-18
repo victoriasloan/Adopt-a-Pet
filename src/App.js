@@ -1,40 +1,59 @@
-const Pet = props => {
-  return React.createElement("div", {}, [
-    React.createElement("h1", {}, props.name),
-    React.createElement("h2", {}, props.animal),
-    React.createElement("h3", {}, props.breed)
-  ]);
-};
+import React from "react";
+import { render } from "react-dom";
+import Pet from "./Pet";
+import pf from "petfinder-client";
+
+const petfinder = pf({
+  key: process.env.API_KEY,
+  secret: process.env.API_SECRET
+});
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    //initialise state to contain empty array of pets
+    this.state = {
+      pets: []
+    };
+  }
+
+  componentDidMount() {
+    //request all pets from Seattle
+    petfinder.pet
+      .find({ output: "full", location: "Seattle, WA" })
+      .then(data => {
+        let pets;
+
+        //check it exists
+        if (data.petfinder.pets && data.petfinder.pets.pet) {
+          if (Array.isArray(data.petfinder.pets.pet)) {
+            pets = data.petfinder.pets.pet;
+          } else {
+            pets = [data.petfinder.pets.pet];
+          }
+        } else {
+          pets = [];
+        }
+
+        this.setState({ pets });
+      });
+  }
+
   handleTitleClick() {
     alert("you clicked the title");
   }
 
   render() {
-    return React.createElement("div", {}, [
-      React.createElement(
-        "h1",
-        { onClick: this.handleTitleClick },
-        "Adopt Me!"
-      ),
-      React.createElement(Pet, {
-        name: "Larry",
-        animal: "Dog",
-        breed: "Lhasa Apso"
-      }),
-      React.createElement(Pet, {
-        name: "Paul",
-        animal: "Cat",
-        breed: "Ginger"
-      }),
-      React.createElement(Pet, {
-        name: "Pepper",
-        animal: "Bird",
-        breed: "Parrot"
-      })
-    ]);
+    return (
+      <div>
+        <h1>Adopt Me!</h1>
+        <Pet name="Jon" animal="Dog" breed="Lab" />
+        <Pet name="Martina" animal="Cat" breed="Ginger" />
+        <Pet name="Milky" animal="Horse" breed="Pieball" />
+      </div>
+    );
   }
 }
 
-ReactDOM.render(React.createElement(App), document.getElementById("root"));
+render(React.createElement(App), document.getElementById("root"));

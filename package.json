@@ -1,0 +1,35 @@
+{
+  "name": "fem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js.jsx,json}\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint \"**/*.{js, jsx}\"",
+    "dev": "parcel src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victoriasloan/Adopt-a-Pet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victoriasloan/Adopt-a-Pet/issues"
+  },
+  "homepage": "https://github.com/victoriasloan/Adopt-a-Pet#readme",
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "parcel-bundler": "^1.11.0",
+    "prettier": "^1.15.3"
+  },
+  "dependencies": {
+    "petfinder-client": "0.0.3",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}

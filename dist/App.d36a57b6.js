@@ -24575,19 +24575,21 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement(_Pet.default, {
-        name: "Jon",
-        animal: "Dog",
-        breed: "Lab"
-      }), _react.default.createElement(_Pet.default, {
-        name: "Martina",
-        animal: "Cat",
-        breed: "Ginger"
-      }), _react.default.createElement(_Pet.default, {
-        name: "Milky",
-        animal: "Horse",
-        breed: "Pieball"
-      }));
+      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement("div", null, this.state.pets.map(function (pet) {
+        var breed; //if it has more than one breed then join the breed together
+
+        if (Array.isArray(pet.breeds.breed)) {
+          breed = pet.breeds.breed.join(", ");
+        } else {
+          breed = pet.breeds.breed;
+        }
+
+        return _react.default.createElement(_Pet.default, {
+          animal: pet.animal,
+          name: pet.name,
+          breed: breed
+        });
+      })));
     }
   }]);
 
